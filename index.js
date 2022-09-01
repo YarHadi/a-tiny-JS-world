@@ -8,56 +8,48 @@
 // ======== OBJECTS DEFINITIONS ========
 // Define your objects here
 
-const dog = {
-   species: "dog",
-   name: "Mitsu",
-   gender: "female",
-   legs: 4,
-   hands: 0,
-   saying: "Woof-Woof!",
-};
-    
-const cat = {
-   species: "cat",
-   name: "Flicker",
-   gender: "male",
-   legs: 4,
-   hands: 0,
-   saying: "Meow!",
-};
-    
-const woman = {
-   species: "human",
-   name: "Alice",
-   gender: "female",
-   legs: 2,
-   hands: 2,
-   saying: "Hello!",
-};
-    
-const catWoman = {
-   species: "human",
-   name: "Diana",
-   gender: "female",
-   legs: 2,
-   hands: 2,
-   saying: cat.saying,
-};
+class Inhabitant {
+   name;
+   gender;
+   saying;
+ 
+   constructor(name, gender, saying) {
+     this.name = name;
+     this.gender = gender;
+     this.saying = saying;
+   }
+   show() {
+     const keys = ["species", "name", "gender", "legs", "hands", "saying"];
+     print(keys.map((key) => this[key]).join(", "));
+   }
+ }
+ 
+ class Animal extends Inhabitant {
+   constructor(species, name, gender, saying) {
+     super(name, gender, saying);
+     this.species = species;
+     this.legs = 4;
+     this.hands = 0;
+   }
+ }
+ 
+ class Human extends Inhabitant {
+   constructor(name, gender, saying) {
+     super(name, gender, saying);
+     this.species = "human";
+     this.legs = 2;
+     this.hands = 2;
+   }
+ }
+ 
+ const dog = new Animal("dog", "Mitsu", "female", "Woof-Woof!");
+ const cat = new Animal("cat", "Flicker", "male", "Meow!");
+ const woman = new Human("Alice", "female", "Hello!");
+ const catWoman = new Human("Diana", "female", cat.saying);
+ const man = new Human("Billy", "male", "Ass we can!");
+ 
+ const inhabitants = [dog, cat, woman, catWoman, man];
+ 
+ inhabitants.forEach((inhabitant) => inhabitant.show());
 
-const man = {
-   species: "human",
-   name: "Billy",
-   gender: "male",
-   legs: 2,
-   hands: 2,
-   saying: "Ass we can!",
-};
-    
-const inhabitants = [dog, cat, woman, catWoman, man];
-
-const keys = ["species", "name", "gender", "legs", "hands", "saying"];
-
-inhabitants.map((inhabitant) => {
-   print(keys.map((key) => inhabitant[key]).join(", "));
-});
-
+ 
